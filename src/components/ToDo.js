@@ -1,5 +1,5 @@
-import React from 'react' // мы обязаны импортировать необходимые пакеты в каждом файле
-import PropTypes from 'prop-types' // у Article это react и prop-types
+import React from 'react'
+import PropTypes from 'prop-types'
 
 class ToDo extends React.Component {
 
@@ -8,21 +8,24 @@ class ToDo extends React.Component {
     isReadOnly: true
   }
 
+  handleChange = (e) => {
+    const { currentText, value } = e.currentTarget
+    this.setState({ [currentText]: value })
+  }
+  validate = () => {
+    const { currentText } = this.state
+    if (currentText.trim()) {
+      return true
+    }
+    return false
+  }
 
   handleCheckboxChange = (e) => {
-    // axios.put(`http://localhost:1234/products/update/${this.props.data._id}`)
-    //     .then(res => {
-    //     console.log("Update", res); 
-    //   })
     this.props.onCheckBox(this.props.data._id, this.props.data.status)
   }
   clickFunction = (e) => {
     this.props.onDeleteToDo(this.props.data._id)
   }
-  // onDoubleClick = (e) => {
-  //   this.props.onEditToDo(this.props.data._id)
-  //   console.log(this.props.data.text)
-  // }
 
   onDoubleClick = (e) => {
     console.log('DOUBLE CLICK')
@@ -34,14 +37,12 @@ class ToDo extends React.Component {
   }
 
   handleBlur = (event) => {
-    //save here new text
     if (event.key === 'Enter') {
-      console.log("Click")
       const { currentText } = this.state
-      this.props.onEditToDo( this.props.data._id, currentText);
-      this.setState({ text: currentText, isReadOnly: true})
+      this.props.onEditToDo(this.props.data._id, currentText);
+      this.setState({ text: currentText, isReadOnly: true })
     }
-  } 
+  }
 
   render() {
     const { isReadOnly, currentText } = this.state
@@ -50,20 +51,12 @@ class ToDo extends React.Component {
     return (
       <React.Fragment>
         <div className="list__items" >
-
-          <input type="checkbox" id="checkbox" checked={status} onChange={this.handleCheckboxChange} />
+          <input type="checkbox" id="cbx" checked={status} onChange={this.handleCheckboxChange} />
           <label forhtml="check"></label>
-          {/* {
-            (check === true) ?
-              <p className="list__text active" onDoubleClick={this.onDoubleClick}>{text}</p>
-              : <p className="list__text" onDoubleClick={this.onDoubleClick}>{text}</p>
-          } */}
-          <input value={currentText} onKeyPress={this.handleBlur} readOnly={isReadOnly} onBlur={() => this.setState({isReadOnly:true})} onChange={this.handleEdit} className={`list__text ${check ? 'active' : ''}`} onDoubleClick={this.onDoubleClick} />
+          <input value={currentText} onKeyPress={this.handleBlur} readOnly={isReadOnly} onBlur={() => this.setState({ isReadOnly: true })} onChange={this.handleEdit} className={`list__text ${check ? 'active' : ''}`} onDoubleClick={this.onDoubleClick} />
           <button onClick={this.clickFunction}></button>
         </div>
-
       </React.Fragment>
-
     )
   }
 }
@@ -75,4 +68,4 @@ ToDo.propTypes = {
   })
 }
 
-export { ToDo } // именованный экспорт
+export { ToDo } 

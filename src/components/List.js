@@ -1,11 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types' 
+import PropTypes from 'prop-types'
 import { ToDo } from './ToDo'
 
-// List items
-
 class List extends React.Component {
-  
 
   renderList = (onCheckBox, onDeleteToDo, onEditToDo) => {
     const { data, mode } = this.props
@@ -27,10 +24,10 @@ class List extends React.Component {
 
 
   render() {
-    const { onCheckBox, onDeleteToDo, onEditToDo, onActiveTab } = this.props
+    const { onCheckBox, onDeleteToDo, onEditToDo } = this.props
     return (
       <div className="list">
-        {this.renderList(onCheckBox, onDeleteToDo, onEditToDo, onActiveTab)}
+        {this.renderList(onCheckBox, onDeleteToDo, onEditToDo)}
       </div>
     );
   }

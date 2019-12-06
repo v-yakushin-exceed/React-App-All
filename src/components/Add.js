@@ -1,14 +1,14 @@
-import React from 'react' // мы обязаны импортировать необходимые пакеты в каждом файле
-import PropTypes from 'prop-types' // у Article это react и prop-types
+import React from 'react'
+import PropTypes from 'prop-types'
 
 class Add extends React.Component {
   state = {
     text: '',
   }
-  handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
       const { text } = this.state
-      
+
       this.props.onAddNews({
         text,
         status: false,
@@ -27,9 +27,11 @@ class Add extends React.Component {
     const { id, value } = e.currentTarget
     this.setState({ [id]: value })
   }
+
   validate = () => {
     const { text } = this.state
     if (text.trim()) {
+      this.setState({ text: text })
       return true
     }
     return false
@@ -37,24 +39,21 @@ class Add extends React.Component {
 
   render() {
     const { text } = this.state
-    const { isAllChecked } = this.props
-    const { data } = this.props
+    const { data, isAllChecked } = this.props
     return (
       <div className='add__text'>
-        {
-          data.length ?
-            <React.Fragment>
-              <input
-                name='checkAll'
-                className='select__all'
-                type='checkbox'
-                onChange={this.handleCheckboxAll}
-                checked={isAllChecked}
-              />
-              <label forhtml="check"></label>
-            </React.Fragment>
-            : null
-        }
+        {data.length ?
+          <React.Fragment>
+            <input
+              name='checkAll'
+              className='select__all'
+              type='checkbox'
+              onChange={this.handleCheckboxAll}
+              checked={isAllChecked}
+            />
+            <label forhtml="check"></label>
+          </React.Fragment>
+          : null}
         <input
           id='text'
           type='text'
@@ -62,14 +61,15 @@ class Add extends React.Component {
           onChange={this.handleChange}
           onKeyPress={this.handleKeyPress}
           placeholder='What needs to be done?'
-          value={text} />
+          value={text}
+        />
       </div>
     )
   }
 }
 
 Add.propTypes = {
-  onAddNews: PropTypes.func.isRequired, // func используется для проверки передачи function
+  onAddNews: PropTypes.func.isRequired,
 }
 
-export { Add } // именованный экспорт
+export { Add } 

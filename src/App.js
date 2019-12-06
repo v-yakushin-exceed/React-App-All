@@ -1,11 +1,13 @@
 import React, { } from 'react';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Add } from './components/Add'
 import { List } from './components/List'
-// import { Footer } from './components/Footer' 
+import { Footer } from './components/Footer';
 import newToDo from './data/newToDo'
 import './App.css';
-import { Footer } from './components/Footer';
-import axios from 'axios';
+
 
 class App extends React.Component {
   state = {
@@ -19,6 +21,7 @@ class App extends React.Component {
       .then(res => {
         console.log('RESPONSE', res)
         this.setState({ toDo: res.data });
+        toast("All todo loading!!!")
       }).catch(err => console.log('ERR', err))
   }
 
@@ -28,14 +31,10 @@ class App extends React.Component {
       .then(res => {
         const newToDo = this.state.toDo.filter(elem => elem.status !== true);
         this.setState({ toDo: newToDo });
+        toast("Well done brooo!!!")
       }).catch(err => console.log('ERR', err))
-
-    //  const nextTodo = this.state.toDo.filter(elem => elem.status !== true);
-    //  this.setState({ toDo: nextTodo })
   }
 
-
-  // ONE FUCNTION INSTEAD OF 3
   handleMode = (e) => {
     this.setState({ mode: e })
   }
@@ -43,39 +42,32 @@ class App extends React.Component {
   handleAddToDo = (data) => {
     axios.post(`http://localhost:1234/products/create`, { ...data })
       .then(res => {
-        //  console.log('RESPONSE',res)
         const newToDo = [res.data, ...this.state.toDo];
-        // console.log('NEW TODO', newToDo)
         this.setState({ toDo: newToDo });
+        toast("Another toDo has arrived");
       }).catch(err => console.log('ERR', err))
-
-    // const newToDo = [data, ...this.state.toDo]
-    // this.setState({ toDo: newToDo })
   }
 
   handleDeleteToDo = (id) => {
-
     axios.delete(`http://localhost:1234/products/delete/${id}`)
       .then(res => {
         const newToDo = this.state.toDo.filter((item) => item._id !== id);
         this.setState({ toDo: newToDo });
+        toast("one less toDo")
       }).catch(err => console.log('ERR', err))
   }
 
   handleEditToDo = (id, currentText) => {
-  //  const text = prompt("edit", "")
     axios.put(`http://localhost:1234/products/modify/${id}`, { "text": currentText })
       .then(res => {
-        
         const newToDo = this.state.toDo.map(item => {
           if (id === item._id) return { ...item, text: currentText }
           return item
         })
         console.log("RESPON", currentText)
         this.setState({ toDo: newToDo })
+        toast("can you handle it")
       })
-
-
   }
 
   handleCheckToDo = (id, status) => {
@@ -84,11 +76,10 @@ class App extends React.Component {
       .then(res => {
         console.log('RES', res)
         const newToDo = this.state.toDo.map(item => {
-
           if (id === item._id) return { ...item, status: !item.status }
           return item
         })
-
+        toast("It`s nice")
         this.setState({ toDo: newToDo }, () => {
           this.setState({ isAllChecked: this.state.toDo.every(elem => elem.status) })
         })
@@ -98,11 +89,8 @@ class App extends React.Component {
   handleAllCheckToDo = () => {
     this.setState({ isAllChecked: !this.state.isAllChecked }, () => {
       this.setState({ todo: this.state.toDo.map(item => item.status = this.state.isAllChecked) })
-      //  const newToDo = this.state.toDo.map(item => item.status = this.state.isAllChecked)
-      //  this.setState({ todo: newToDo })
     })
   }
-
 
   render() {
     return (
@@ -120,12 +108,14 @@ class App extends React.Component {
           onEditToDo={this.handleEditToDo}
           data={this.state.toDo}
           onActiveTab={this.activeCheck}
-          mode={this.state.mode} />
+          mode={this.state.mode}
+        />
         <Footer
           data={this.state.toDo}
           onDeleteAllToDo={this.handleDeleteAllToDo}
           onMode={this.handleMode}
         />
+        <ToastContainer />
       </div>
     )
   }
