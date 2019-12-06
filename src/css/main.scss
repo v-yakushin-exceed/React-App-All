@@ -2,9 +2,6 @@ body{
     width: 100%;
     height: 100vh;
     background: #f4f4f4;
-    a {
-        background: #000;
-    }
   }
   
   h1{
@@ -157,7 +154,7 @@ body{
   
   
   
-  .list__items input[type="checkbox"],
+/*  .list__items input[type="checkbox"],
   .add__text input[type="checkbox"]{
     width: 30px;
     height: 30px;
@@ -209,7 +206,7 @@ body{
   .add__text input[type="checkbox"]:checked + label::before {
     border-radius: 50%;
     border: 1px solid #e6e6e6;
-  } 
+  } */
   
   /*   =================== newCheckbox ==================   */
   

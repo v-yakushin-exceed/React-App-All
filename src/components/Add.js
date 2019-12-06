@@ -45,13 +45,14 @@ class Add extends React.Component {
         {data.length ?
           <React.Fragment>
             <input
+              id="check"
               name='checkAll'
               className='select__all'
               type='checkbox'
               onChange={this.handleCheckboxAll}
               checked={isAllChecked}
             />
-            <label forhtml="check"></label>
+            <label forhtml="check" className="check-box"></label>
           </React.Fragment>
           : null}
         <input

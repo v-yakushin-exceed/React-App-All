@@ -6,7 +6,7 @@ import { Add } from './components/Add'
 import { List } from './components/List'
 import { Footer } from './components/Footer';
 import newToDo from './data/newToDo'
-import './App.css';
+import './App.scss';
 
 
 class App extends React.Component {

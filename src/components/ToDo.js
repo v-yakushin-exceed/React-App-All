@@ -51,8 +51,8 @@ class ToDo extends React.Component {
     return (
       <React.Fragment>
         <div className="list__items" >
-          <input type="checkbox" id="cbx" checked={status} onChange={this.handleCheckboxChange} />
-          <label forhtml="check"></label>
+          <input type="checkbox" id="check" checked={status} onChange={this.handleCheckboxChange} />
+          <label forhtml="check" className="check-box"></label>
           <input value={currentText} onKeyPress={this.handleBlur} readOnly={isReadOnly} onBlur={() => this.setState({ isReadOnly: true })} onChange={this.handleEdit} className={`list__text ${check ? 'active' : ''}`} onDoubleClick={this.onDoubleClick} />
           <button onClick={this.clickFunction}></button>
         </div>
