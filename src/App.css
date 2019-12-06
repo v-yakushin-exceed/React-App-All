@@ -90,7 +90,7 @@ input.list__text.active{
   display: flex;
 }
 
-.nav__tab a{
+.nav__tab{
   text-decoration: none;
   margin: 0 10px;
 }

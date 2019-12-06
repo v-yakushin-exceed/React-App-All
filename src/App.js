@@ -21,7 +21,7 @@ class App extends React.Component {
       .then(res => {
         console.log('RESPONSE', res)
         this.setState({ toDo: res.data });
-        toast("All todo loading!!!")
+        toast.success("All todo loading!!!")
       }).catch(err => console.log('ERR', err))
   }
 
@@ -31,7 +31,7 @@ class App extends React.Component {
       .then(res => {
         const newToDo = this.state.toDo.filter(elem => elem.status !== true);
         this.setState({ toDo: newToDo });
-        toast("Well done brooo!!!")
+        toast.success("Well done brooo!!!")
       }).catch(err => console.log('ERR', err))
   }
 
@@ -44,7 +44,7 @@ class App extends React.Component {
       .then(res => {
         const newToDo = [res.data, ...this.state.toDo];
         this.setState({ toDo: newToDo });
-        toast("Another toDo has arrived");
+        toast.success("Another toDo has arrived");
       }).catch(err => console.log('ERR', err))
   }
 
@@ -53,7 +53,7 @@ class App extends React.Component {
       .then(res => {
         const newToDo = this.state.toDo.filter((item) => item._id !== id);
         this.setState({ toDo: newToDo });
-        toast("one less toDo")
+        toast.error("one less toDo")
       }).catch(err => console.log('ERR', err))
   }
 
@@ -66,7 +66,7 @@ class App extends React.Component {
         })
         console.log("RESPON", currentText)
         this.setState({ toDo: newToDo })
-        toast("can you handle it")
+        toast.warn("can you handle it")
       })
   }
 
@@ -79,7 +79,7 @@ class App extends React.Component {
           if (id === item._id) return { ...item, status: !item.status }
           return item
         })
-        toast("It`s nice")
+        toast.success("It`s nice")
         this.setState({ toDo: newToDo }, () => {
           this.setState({ isAllChecked: this.state.toDo.every(elem => elem.status) })
         })
