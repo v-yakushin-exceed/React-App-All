@@ -5,22 +5,20 @@ class Add extends React.Component {
   state = {
     text: '',
   }
+
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       const { text } = this.state
-
-      this.props.onAddNews({
-        text,
+      this.props.addToDo({
+        text: text.trim(),
         status: false,
       })
-
-      this.setState({ text: "" })
+      this.setState({ text: '' })
     }
   }
 
   handleCheckboxAll = () => {
     this.props.onCheckAllBox()
-    console.log(this.props.data)
   }
 
   handleChange = (e) => {
@@ -45,7 +43,7 @@ class Add extends React.Component {
         {data.length ?
           <React.Fragment>
             <input
-              id="check"
+              id='check'
               name='checkAll'
               className='select__all'
               type='checkbox'
@@ -70,7 +68,7 @@ class Add extends React.Component {
 }
 
 Add.propTypes = {
-  onAddNews: PropTypes.func.isRequired,
+  addToDo: PropTypes.func.isRequired
 }
 
-export { Add } 
+export default Add

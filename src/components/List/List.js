@@ -1,33 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { ToDo } from './ToDo'
+import  ToDo  from '../ToDo/container'
 
 class List extends React.Component {
 
-  renderList = (onCheckBox, onDeleteToDo, onEditToDo) => {
+  renderList = (onDeleteToDo, onEditToDo, onCheckBox) => {
     const { data, mode } = this.props
     let filteredArray = data;
 
     if (mode === 'active') {
-      filteredArray = data.filter(elem => elem.status === false)
+      filteredArray = data.filter(elem => !elem.status)
     }
 
     if (mode === 'completed') {
-      filteredArray = data.filter(elem => elem.status === true)
+      filteredArray = data.filter(elem => elem.status)
     }
 
     const todos = filteredArray.map(function (item) {
-      return <ToDo onEditToDo={onEditToDo} onDeleteToDo={onDeleteToDo} onCheckBox={onCheckBox} key={item._id} data={item} />
+      return <ToDo onCheckBox={onCheckBox} onEditToDo={onEditToDo} onDeleteToDo={onDeleteToDo} key={item._id} data={item} />
     })
     return todos
   }
 
 
   render() {
-    const { onCheckBox, onDeleteToDo, onEditToDo } = this.props
+    const {onDeleteToDo, onEditToDo, onCheckBox} = this.props
     return (
       <div className="list">
-        {this.renderList(onCheckBox, onDeleteToDo, onEditToDo)}
+        {this.renderList(onDeleteToDo, onEditToDo, onCheckBox)}
       </div>
     );
   }
@@ -37,4 +37,4 @@ List.propTypes = {
   data: PropTypes.array.isRequired
 }
 
-export { List }
+export default List

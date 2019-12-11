@@ -5,31 +5,22 @@ class ToDo extends React.Component {
 
   state = {
     currentText: this.props.data.text,
-    isReadOnly: true
+    isReadOnly: true,
   }
 
-  handleChange = (e) => {
-    const { currentText, value } = e.currentTarget
-    this.setState({ [currentText]: value })
+  handleCheckboxChange = () => {
+    const { _id, status } = this.props.data;
+    this.props.setCheckId(_id, !status)
+    this.props.onCheckBox(!status)
   }
-  validate = () => {
-    const { currentText } = this.state
-    if (currentText.trim()) {
-      return true
-    }
-    return false
-  }
-
-  handleCheckboxChange = (e) => {
-    this.props.onCheckBox(this.props.data._id, this.props.data.status)
-  }
-  clickFunction = (e) => {
+  clickFunction = () => {
     this.props.onDeleteToDo(this.props.data._id)
+    this.props.delElem(this.props.data._id)
   }
 
-  onDoubleClick = (e) => {
-    console.log('DOUBLE CLICK')
+  onDoubleClick = () => {
     this.setState({ isReadOnly: !this.state.isReadOnly })
+
   }
 
   handleEdit = (e) => {
@@ -39,8 +30,10 @@ class ToDo extends React.Component {
   handleBlur = (event) => {
     if (event.key === 'Enter') {
       const { currentText } = this.state
-      this.props.onEditToDo(this.props.data._id, currentText);
-      this.setState({ text: currentText, isReadOnly: true })
+      this.setState({ text: currentText.trim(), isReadOnly: true })
+      console.log("DBCLICK", currentText, this.props.data._id)
+     // this.props.onEditToDo(this.props.data._id, currentText.trim());
+      this.props.editToDo(this.props.data._id, currentText);
     }
   }
 
@@ -68,4 +61,4 @@ ToDo.propTypes = {
   })
 }
 
-export { ToDo } 
+export default ToDo 

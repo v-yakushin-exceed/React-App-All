@@ -4,10 +4,13 @@ import PropTypes from 'prop-types'
 class Footer extends React.Component {
 
     buttonDelete = () => {
-        this.props.onDeleteAllToDo(this.props.data)
+        this.props.onDeleteAllToDo()
+        this.props.delAll(this.props.data)
     }
     buttonMode = (e) => {
-        this.props.onMode(e.currentTarget.name)
+        
+     //   this.props.onMode(e.currentTarget.name)
+        this.props.setMode(e.currentTarget.name)
     }
 
     render() {
@@ -42,4 +45,4 @@ Footer.propTypes = {
     data: PropTypes.array.isRequired
 }
 
-export { Footer }
+export default Footer
